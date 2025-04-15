@@ -2,12 +2,10 @@
 
 import type React from 'react'
 import { useEffect, useState } from 'react'
-
 import { Alert } from '@packages/components/alert'
-import { Heading } from '@packages/components/heading'
 import axios from 'axios'
 import seedrandom from 'seedrandom'
-
+import { XMarkIcon } from '@heroicons/react/24/solid'
 import type { Currencies } from '../../../packages/server/constants'
 import type { User } from '../../../packages/server/users/users'
 import type * as DashboardTypes from '@feature/ryansubmission/types'
@@ -21,6 +19,7 @@ export const PaymentForm = ({ setPayments }: props) => {
   const [receiverList, setReceiverList] = useState<DashboardTypes.userType[]>(
     [],
   )
+  const [showModal, setShowModal] = useState(false)
   const [selectedDate, setSelectedDate] = useState<string>('')
   const [selectedSender, setSelectedSender] = useState<string>('')
   const [selectedReceiver, setSelectedReceiver] = useState<string>('')
@@ -135,144 +134,166 @@ export const PaymentForm = ({ setPayments }: props) => {
   }
 
   return (
-    <div className="mx-auto w-full md:w-[25%] lg:w-[25%]">
-      <Heading onDark>
+    <div className="mx-auto">
+      {/* <Heading onDark>
         <Heading.Title as="h2">Submit Payment</Heading.Title>
-      </Heading>
+      </Heading> */}
 
-      <form
-        className="mt-4 h-[30rem] w-full rounded-2xl border border-gray-200 bg-white p-8 shadow-xl"
-        onSubmit={handleFormSubmission}
+      <button 
+        type="button"
+        className="absolute top-[23%] right-1/4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        onClick={() => setShowModal(true)}
       >
-        <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">
-          <i></i> Payment Details
-        </h2>
-
-        <div className="space-y-6">
-          <div className="flex space-x-2">
-            <div className="w-1/2 ">
-              <label
-                className="mb-1 block text-sm font-medium text-gray-700"
-                htmlFor="date"
-              >
-                Payment Date
-              </label>
-              <input
-                className="h-10 w-[99%] rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
-                onChange={(e) => setSelectedDate(e.target.value)}
-                type="date"
-                value={selectedDate.split('T')[0]}
-              />
-            </div>
-          </div>
-          <div className="flex space-x-2">
-            <div className="flex-1">
-              <label
-                className="mb-1 block text-sm font-medium text-gray-700"
-                htmlFor="sender"
-              >
-                Sender
-              </label>
-              <select
-                className="h-10 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
-                onChange={(e) => handleSenderSelection(e.target.value)}
-                value={selectedSender}
-              >
-                <option value="" disabled>
-                  Select a user
-                </option>
-                {users.map((item) => (
-                  <option key={item.id.toString()} value={item.name}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex-1">
-              <label
-                className="mb-1 block text-sm font-medium text-gray-700"
-                htmlFor="receiver"
-              >
-                Receiver
-              </label>
-              <select
-                className="h-10 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
-                onChange={(e) => handleReceiverSelection(e.target.value)}
-                value={selectedReceiver}
-              >
-                <option value="" disabled>
-                  Select a user
-                </option>
-                {receiverList.map((item) => (
-                  <option key={item.id.toString()} value={item.name.toString()}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="flex space-x-2">
-            <div className="flex-1">
-              <label
-                className="mb-1 block text-sm font-medium text-gray-700"
-                htmlFor="amount"
-              >
-                Amount
-              </label>
-              <input
-                className="h-10 w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
-                onChange={(e) => setSelectedAmount(e.target.value)}
-                placeholder="Enter amount"
-                step="0.01"
-                type="number"
-              />
-            </div>
-            <div className="flex-1">
-              <label
-                className="mb-1 block text-sm font-medium text-gray-700"
-                htmlFor="currency"
-              >
-                Currency
-              </label>
-              <select
-                className="h-10 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
-                onChange={(e) => handleCurrencySelection(e.target.value)}
-                value={selectedCurrency}
-              >
-                <option value="" disabled>
-                  Select a currency
-                </option>
-                {currencies.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="pt-4 text-right">
-            <button
-              className="inline-block rounded-lg bg-blue-800 px-6 py-2 font-semibold text-white shadow transition hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800"
-              type="submit"
+        Make Payment
+      </button>
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex justify-center items-center">
+          <div className="w-[30rem] bg-white rounded-xl shadow-lg">
+            <form
+              className="mt-4 h-full w-full rounded-2xl bg-white p-8 shadow-xl"
+              onSubmit={handleFormSubmission}
             >
-              Submit
-            </button>
+              <button
+                type="button"
+                className="btn-close"
+                onClick={() => setShowModal(false)}
+                aria-label="Close"
+              >
+                <XMarkIcon className="size-8" style={{color: "black"}}/>
+              </button>
+              <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">
+                <i></i> Payment Details
+              </h2>
+
+
+              <div className="space-y-6">
+                <div className="flex space-x-2">
+                  <div className="w-1/2 ">
+                    <label
+                      className="mb-1 block text-sm font-medium text-gray-700"
+                      htmlFor="date"
+                    >
+                      Payment Date
+                    </label>
+                    <input
+                      className="h-10 w-[99%] rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      type="date"
+                      value={selectedDate.split('T')[0]}
+                    />
+                  </div>
+                </div>
+                <div className="flex space-x-2">
+                  <div className="flex-1">
+                    <label
+                      className="mb-1 block text-sm font-medium text-gray-700"
+                      htmlFor="sender"
+                    >
+                      Sender
+                    </label>
+                    <select
+                      className="h-10 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
+                      onChange={(e) => handleSenderSelection(e.target.value)}
+                      value={selectedSender}
+                    >
+                      <option value="" disabled>
+                        Select a user
+                      </option>
+                      {users.map((item) => (
+                        <option key={item.id.toString()} value={item.name}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex-1">
+                    <label
+                      className="mb-1 block text-sm font-medium text-gray-700"
+                      htmlFor="receiver"
+                    >
+                      Receiver
+                    </label>
+                    <select
+                      className="h-10 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
+                      onChange={(e) => handleReceiverSelection(e.target.value)}
+                      value={selectedReceiver}
+                    >
+                      <option value="" disabled>
+                        Select a user
+                      </option>
+                      {receiverList.map((item) => (
+                        <option key={item.id.toString()} value={item.name.toString()}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="flex space-x-2">
+                  <div className="flex-1">
+                    <label
+                      className="mb-1 block text-sm font-medium text-gray-700"
+                      htmlFor="amount"
+                    >
+                      Amount
+                    </label>
+                    <input
+                      className="h-10 w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
+                      onChange={(e) => setSelectedAmount(e.target.value)}
+                      placeholder="Enter amount"
+                      step="0.01"
+                      type="number"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <label
+                      className="mb-1 block text-sm font-medium text-gray-700"
+                      htmlFor="currency"
+                    >
+                      Currency
+                    </label>
+                    <select
+                      className="h-10 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-blue-800 focus:ring focus:ring-blue-800"
+                      onChange={(e) => handleCurrencySelection(e.target.value)}
+                      value={selectedCurrency}
+                    >
+                      <option value="" disabled>
+                        Select a currency
+                      </option>
+                      {currencies.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="pt-4 text-right">
+                  <button
+                    className="inline-block rounded-lg bg-blue-800 px-6 py-2 font-semibold text-white shadow transition hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800"
+                    type="submit"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+            {showAPIError ? (
+              <div
+                aria-atomic="true"
+                aria-live="assertive"
+                className="fixed bottom-[23%] z-50 w-96 "
+                role="alert"
+              >
+                <Alert onDark>
+                  An error has occurred submitting your payment. Please try again and
+                  contact support if the issue persists.
+                </Alert>
+              </div>
+            ) : null}
           </div>
         </div>
-      </form>
-      {showAPIError ? (
-        <div
-          aria-atomic="true"
-          aria-live="assertive"
-          className="fixed bottom-[23%] z-50 w-96 "
-          role="alert"
-        >
-          <Alert onDark>
-            An error has occurred submitting your payment. Please try again and
-            contact support if the issue persists.
-          </Alert>
-        </div>
-      ) : null}
+      )}
     </div>
   )
 }

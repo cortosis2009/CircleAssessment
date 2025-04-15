@@ -12,7 +12,7 @@ import axios from "axios";
 import * as DashboardTypes from '@feature/ryansubmission/types'
 import { Link } from '@packages/components/link'
 
-const Instructions: React.FC = () => {
+const Dashboard: React.FC = () => {
   const [payments, setPayments] = useState(Array<DashboardTypes.sendPaymentInfo>);
   
   useEffect(() => {
@@ -62,14 +62,16 @@ const Instructions: React.FC = () => {
       </Section>
       <section className="mx-auto bg-gray-900 px-6 py-16 lg:px-8 w-full " >
 
-        <div className="flex flex-wrap justify-between">
-          <MostRecent payments={payments}/>
-          <SearchPayments payments={payments}/>
-          <PaymentForm setPayments={handlePaymentList}/>
+        <div className=" items-center">
+        <PaymentForm setPayments={handlePaymentList}/>
+          <div className="w-full flex justify-center">
+            <MostRecent payments={payments}/>
+            <SearchPayments payments={payments}/>
+          </div>
         </div>
       </section>
     </main>
   );
 };
 
-export default Instructions;
+export default Dashboard;

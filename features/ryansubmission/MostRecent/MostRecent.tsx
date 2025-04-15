@@ -7,9 +7,10 @@ import type * as DashboardTypes from '@feature/ryansubmission/types'
 type props = {
   payments: DashboardTypes.sendPaymentInfo[]
 }
+
 export const MostRecent = ({ payments }: props) => {
   return (
-    <div className="mx-auto w-full md:w-1/4 lg:w-1/4">
+    <div className="mr-2 w-full md:w-1/4 lg:w-1/4">
       <Heading onDark>
         <Heading.Title as="h2">Recent Payments</Heading.Title>
       </Heading>

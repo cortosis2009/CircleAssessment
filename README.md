@@ -78,8 +78,7 @@ The Circle Team
 Some new modules were added, so running an `npm install` or `yarn install` will be necessary.
 
 ## Layout
-
-I was asked to create a one page application, so my aim was to have everything displayed cleanly without the need for scrolling or modals, etc. I kept the general light/dark combination as seen in the rest of the application and created a button on the landing page to route you to my new page.
+ I kept the general light/dark combination as seen in the rest of the application and created a button on the landing page to route you to my new page.
 ## Top 25 transactions
 I had a couple of options in mind for how to handle bringing in the payment data, but decided to call the GET api every 1.25 seconds to keep it 'live' but to also allow some padding on the 1 second refresh from the api. I kept the styling simple and clean so that the requested data can be easily seen. 
 ## Search functionality

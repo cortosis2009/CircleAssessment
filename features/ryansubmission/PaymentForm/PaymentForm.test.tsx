@@ -1,13 +1,14 @@
 import { PaymentForm } from "./PaymentForm"
-import { waitFor, render, screen } from '@testing-library/react'
-import { twoPayments } from '../Utils/testutils'
+import { waitFor, render, screen, fireEvent } from '@testing-library/react'
 import axios from 'axios'
 
 describe("Tests for the PaymentForm component", () => {
 
     it("Renders the header, inputs, and dropdowns", () => {
         render(<PaymentForm setPayments={vi.fn()}/>)
-        expect(screen.getByRole('heading', {name: /Submit Payment/})).toBeInTheDocument()
+        const button = screen.getByText(/Make Payment/i)
+        fireEvent.click(button)
+
         expect(screen.getByText("Payment Date")).toBeInTheDocument()
         expect(screen.getByText(/Sender/)).toBeInTheDocument()
         expect(screen.getByText(/Receiver/)).toBeInTheDocument()
@@ -22,6 +23,8 @@ describe("Tests for the PaymentForm component", () => {
         })
 
         render(<PaymentForm setPayments={vi.fn()}/>)
+        const button = screen.getByText(/Make Payment/i)
+        fireEvent.click(button)
 
         await waitFor(() => {
             expect(screen.getByRole('option', {name: 'Ryan'})).toBeInTheDocument()

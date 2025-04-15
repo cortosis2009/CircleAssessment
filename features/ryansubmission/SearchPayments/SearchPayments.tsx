@@ -29,8 +29,6 @@ export const SearchPayments = ({ payments }: props) => {
 
   const recursiveSearch = (obj: any, searchItem: string) => {
     if (!searchItem) {
-      setCurrFilter('')
-      setSortOrder('') //reset the two filters
       return null //no results with no searching
     }
     //the search results have nested objects, so some recursive searching was needed
@@ -95,7 +93,7 @@ export const SearchPayments = ({ payments }: props) => {
   }
 
   return (
-    <div className="mx-auto w-full md:w-1/4 lg:w-1/4">
+    <div className="ml-2 w-full md:w-1/4 lg:w-1/4">
       <Heading onDark>
         <Heading.Title as="h2">Search Payments</Heading.Title>
       </Heading>
