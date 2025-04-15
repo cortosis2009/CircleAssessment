@@ -33,7 +33,6 @@ export const PaymentForm = ({ setPayments }: props) => {
     const today = new Date()
     today.setHours(0, 0, 0, 0) //the conversion to ISO was messing with the date, depending on the time of day
     setSelectedDate(today.toISOString())
-    // setSelectedDate(new Date().toISOString())
   }, [])
 
   const getUserData = async () => {
@@ -183,7 +182,7 @@ export const PaymentForm = ({ setPayments }: props) => {
                   Select a user
                 </option>
                 {users.map((item) => (
-                  <option key={item.id.toString()} value={item.name.toString()}>
+                  <option key={item.id.toString()} value={item.name}>
                     {item.name}
                   </option>
                 ))}

@@ -85,8 +85,9 @@ export const SearchPayments = ({ payments }: props) => {
 
   const handleCurrFilter = (curr: Currencies) => {
     setCurrFilter(curr)
+    
 
-    const filteredList = [...filteredPayments].filter(
+    const filteredList = [...payments].filter(
       (item) => item.currency === curr,
     )
 
@@ -129,7 +130,7 @@ export const SearchPayments = ({ payments }: props) => {
           onChange={(e) => handleCurrFilter(e.target.value as Currencies)}
           value={currFilter}
         >
-          <option value="" disabled>
+          <option value="">
             Currency
           </option>
           {currencies.map((item) => (
