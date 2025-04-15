@@ -278,22 +278,21 @@ export const PaymentForm = ({ setPayments }: props) => {
                 </div>
               </div>
             </form>
-            {showAPIError ? (
-              <div
-                aria-atomic="true"
-                aria-live="assertive"
-                className="fixed bottom-[23%] z-50 w-96 "
-                role="alert"
-              >
-                <Alert onDark>
-                  An error has occurred submitting your payment. Please try again and
-                  contact support if the issue persists.
-                </Alert>
-              </div>
-            ) : null}
+            
           </div>
         </div>
       )}
+      {showAPIError ? (
+        <div 
+          aria-atomic="true"
+          aria-live="assertive"
+          className="fixed bottom-[10%] left-1/2 transform -translate-x-1/2 z-50 w-[35rem] bg-red-600 text-white p-4 rounded-t-xl rounded-b-xl"
+          role="alert"
+        >
+          An error has occurred submitting your payment. Please try again and
+          contact support if the issue persists.
+        </div>
+      ) : null}
     </div>
   )
 }
