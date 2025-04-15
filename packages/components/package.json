@@ -1,0 +1,37 @@
+{
+  "name": "@packages/components",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./alert": "./Alert/Alert.tsx",
+    "./button": "./Button/Button.tsx",
+    "./faq": "./Faq/Faq.tsx",
+    "./feature-grid": "./FeatureGrid/FeatureGrid.tsx",
+    "./heading": "./Heading/Heading.tsx",
+    "./link": "./Link/Link.tsx",
+    "./list": "./List/List.tsx",
+    "./section": "./Section/Section.tsx"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0 --fix",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
+    "classnames": "^2.5.1"
+  },
+  "devDependencies": {
+    "@packages/eslint": "*",
+    "@packages/tsconfig": "*",
+    "@packages/vitest": "*"
+  },
+  "peerDependencies": {
+    "@testing-library/react": "*",
+    "next": "*",
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@packages/tailwindcss",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --fix",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.2",
+    "postcss-import": "^16.1.0",
+    "postcss-preset-env": "^10.1.4",
+    "tailwindcss": "^3.4.16"
+  },
+  "devDependencies": {
+    "@packages/eslint": "*",
+    "@packages/tsconfig": "*"
+  }
+}

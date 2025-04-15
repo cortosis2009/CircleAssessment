@@ -1,0 +1,37 @@
+{
+  "name": "@feature/ryansubmission",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./mostrecent": "./MostRecent/MostRecent.tsx",
+    "./paymentform": "./PaymentForm/PaymentForm.tsx",
+    "./searchpayments": "./SearchPayments/SearchPayments.tsx",
+    "./types": "./Types/ryantypes.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0 --fix",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@packages/components": "*",
+    "@types/seedrandom": "^3.0.8",
+    "axios": "^1.8.4",
+    "bootstrap": "^5.3.5",
+    "jiti": "^2.4.2",
+    "tailwind-scrollbar-hide": "^2.0.0"
+  },
+  "devDependencies": {
+    "@packages/eslint": "*",
+    "@packages/tsconfig": "*",
+    "@packages/vitest": "*"
+  },
+  "peerDependencies": {
+    "@heroicons/react": "*",
+    "@testing-library/react": "*",
+    "next": "*",
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}
